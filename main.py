@@ -1,4 +1,5 @@
 import argparse
+import json
 import shutil
 import subprocess
 import sys
@@ -30,11 +31,25 @@ def main():
 
     output = args.output or str(md_file.with_suffix(".pdf"))
 
+    pdf_options = {
+        "format": "A4",
+        "margin": "20mm",
+        "printBackground": True,
+        "displayHeaderFooter": True,
+        "headerTemplate": "<span></span>",
+        "footerTemplate": (
+            '<div style="font-size: 10px; text-align: center; width: 100%;">'
+            'Page <span class="pageNumber"></span> of <span class="totalPages"></span>'
+            '</div>'
+        ),
+    }
+
     cmd = [
         "md-to-pdf",
         "--stylesheet", str(project_root / "github-markdown.css"),
         "--body-class", "markdown-body",
         "--basedir", str(project_root),
+        "--pdf-options", json.dumps(pdf_options),
         str(md_file),
     ]
 
