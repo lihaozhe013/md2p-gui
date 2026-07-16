@@ -1,4 +1,5 @@
 import argparse
+import json
 import shutil
 import subprocess
 import sys
@@ -46,7 +47,16 @@ def ensure_config(project_root: Path) -> Path:
         if not example.exists():
             print(f"Error: {example} not found", file=sys.stderr)
             sys.exit(1)
-        shutil.copy(example, config_file)
+        config = json.loads(example.read_text(encoding="utf-8"))
+        config["stylesheet"] = [str(project_root / s) for s in config["stylesheet"]]
+        for script in config.get("script", []):
+            if "url" in script:
+                script["path"] = str((project_root / script["url"]).resolve())
+                del script["url"]
+        config_file.write_text(
+            json.dumps(config, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
         print(f"Created {config_file} from template")
     return config_file
 
