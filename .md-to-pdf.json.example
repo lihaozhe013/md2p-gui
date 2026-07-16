@@ -15,7 +15,7 @@
   },
   "script": [
     {
-      "content": "MathJax = { tex: { inlineMath: [[\"$\", \"$\"], [\"\\\\(\", \"\\\\)\" ]], displayMath: [[\"$$\", \"$$\"], [\"\\\\[\", \"\\\\]\"]] } };"
+      "content": "MathJax = { tex: { inlineMath: [[\"$\", \"$\"], [\"\\\\(\", \"\\\\)\" ]], displayMath: [[\"$$\", \"$$\"], [\"\\\\[\", \"\\\\]\"]] }, chtml: { fontURL: \"/fonts/mathjax/woff-v2\" } };"
     },
     {
       "url": "js/tex-chtml.js"
