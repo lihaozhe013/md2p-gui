@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import json
+
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QCheckBox,
@@ -16,7 +18,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from converter import get_project_root
+from converter import ensure_config, get_project_root
 
 PAGE_SIZES = ["A4", "A3", "A5", "Letter", "Legal"]
 PDF_MARGINS = ["10mm", "15mm", "20mm", "25mm", "30mm"]
@@ -26,11 +28,22 @@ class OptionsPanel(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._css_files = self._find_css_files()
+        self._default_css = self._read_config_css()
         self._setup_ui()
 
     def _find_css_files(self) -> list[Path]:
         root = get_project_root()
         return sorted(root.glob("*.css"))
+
+    def _read_config_css(self) -> str | None:
+        try:
+            root = get_project_root()
+            config_file = ensure_config(root)
+            config = json.loads(config_file.read_text(encoding="utf-8"))
+            stylesheets = config.get("stylesheet", [])
+            return str(stylesheets[0]) if stylesheets else None
+        except Exception:
+            return None
 
     def _setup_ui(self):
         layout = QVBoxLayout(self)
@@ -43,8 +56,7 @@ class OptionsPanel(QWidget):
         self._css_combo = QComboBox()
         for css in self._css_files:
             self._css_combo.addItem(css.name, str(css))
-        if self._css_files:
-            self._css_combo.setCurrentIndex(0)
+        self._select_css(self._default_css)
         form.addRow("CSS 主题:", self._css_combo)
 
         dir_layout = QHBoxLayout()
@@ -81,6 +93,14 @@ class OptionsPanel(QWidget):
         directory = QFileDialog.getExistingDirectory(self, "选择输出目录")
         if directory:
             self._output_dir_edit.setText(directory)
+
+    def _select_css(self, css_path: str | None) -> None:
+        if not css_path:
+            return
+        for i in range(self._css_combo.count()):
+            if self._css_combo.itemData(i) == css_path:
+                self._css_combo.setCurrentIndex(i)
+                return
 
     def set_output_filename(self, name: str) -> None:
         if not self._filename_edit.text():
