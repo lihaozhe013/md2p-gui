@@ -1,4 +1,4 @@
-# md-to-pdf-config
+# md2p-gui
 
 A Markdown-to-PDF conversion tool with beautiful styling, LaTeX math support, and both CLI and GUI interfaces. Uses [md-to-pdf](https://www.npmjs.com/package/md-to-pdf) under the hood with pre-configured CSS themes, custom fonts, and MathJax rendering.
 
