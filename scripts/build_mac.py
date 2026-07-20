@@ -15,6 +15,7 @@ DATA_FILES = [
     "css/rose.css",
     ".md-to-pdf.json.example",
     "js/tex-chtml.js",
+    "fonts",
 ]
 
 QUARANTINE_SCRIPT = f"""#!/bin/bash

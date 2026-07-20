@@ -79,7 +79,7 @@ def convert_file(
 
     cmd = [
         str(shutil.which("md-to-pdf") or "md-to-pdf"),
-        "--basedir", str(md_file.parent.resolve()),
+        "--basedir", str(project_root),
         "--config-file", str(config_file),
     ]
 
