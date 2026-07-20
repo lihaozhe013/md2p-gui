@@ -8,7 +8,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DIST_DIR = REPO_ROOT / "dist"
-APP_NAME = "md-to-pdf-gui"
+APP_NAME = "md2p-gui"
 
 DATA_FILES = [
     "css/github-markdown.css",

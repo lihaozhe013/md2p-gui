@@ -25,7 +25,7 @@ def main():
         sys.executable, "-m", "PyInstaller",
         "--onefile",
         "--windowed",
-        "--name", "md-to-pdf-gui",
+        "--name", "md2p-gui",
         "--distpath", str(DIST_DIR),
         "--specpath", str(DIST_DIR),
         "--workpath", str(DIST_DIR / "build"),
@@ -36,7 +36,7 @@ def main():
     ]
 
     subprocess.run(cmd, check=True, cwd=REPO_ROOT)
-    print(f"\nDone! Executable at: {DIST_DIR / 'md-to-pdf-gui.exe'}")
+    print(f"\nDone! Executable at: {DIST_DIR / 'md2p-gui.exe'}")
 
 
 if __name__ == "__main__":
