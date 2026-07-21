@@ -7,6 +7,7 @@ A Markdown-to-PDF conversion tool with beautiful styling, LaTeX math support, an
 - **CLI & GUI** — command-line batch conversion and a PySide6 drag-and-drop GUI
 - **Multiple CSS themes** — `rose.css`, `kiro.css`, `github-markdown.css`
 - **LaTeX math** — inline `$...$` and display `$$...$$` via MathJax
+- **Mermaid diagrams** — flowcharts, sequence diagrams, Gantt charts, and more (`` ```mermaid ``)
 - **Custom fonts** — JetBrains Mono Nerd Font, Inter, Noto Sans SC, Open Sans
 - **Pre / post-processing** — automatic markdown fixes and PDF metadata injection
 - **Configurable output** — page size, margins, headers & footers

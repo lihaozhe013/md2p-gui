@@ -197,3 +197,16 @@
     page-break-inside: avoid;
   }
 }
+
+/* ── Mermaid Diagrams ── */
+.markdown-body .mermaid {
+  overflow: auto;
+  max-width: 100%;
+  margin: 1em 0;
+  text-align: center;
+}
+
+.markdown-body .mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
