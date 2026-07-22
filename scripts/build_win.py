@@ -12,6 +12,7 @@ DATA_FILES = [
     ".md-to-pdf.json.example",
     "js/tex-chtml.js",
     "js/mermaid.min.js",
+    "js/mermaid-init.js",
     "fonts",
 ]
 
