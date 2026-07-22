@@ -194,8 +194,13 @@
 .markdown-body pre code {
   font-family: var(--fontStack-monospace);
   color: #4a3b40;
+  background: transparent;
   white-space: pre-wrap;
   word-wrap: break-word;
+}
+
+.markdown-body pre code [class] {
+  background: transparent;
 }
 
 /* ── Tables ── */
