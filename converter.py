@@ -34,20 +34,19 @@ def get_project_root() -> Path:
 
 def ensure_config(project_root: Path) -> Path:
     config_file = project_root / ".md-to-pdf.json"
-    if not config_file.exists():
-        example = project_root / ".md-to-pdf.json.example"
-        if not example.exists():
-            raise FileNotFoundError(f"{example} not found")
-        config = json.loads(example.read_text(encoding="utf-8"))
-        config["stylesheet"] = [str(project_root / s) for s in config["stylesheet"]]
-        for script in config.get("script", []):
-            if "url" in script:
-                script["path"] = str((project_root / script["url"]).resolve())
-                del script["url"]
-        config_file.write_text(
-            json.dumps(config, indent=2, ensure_ascii=False) + "\n",
-            encoding="utf-8",
-        )
+    example = project_root / ".md-to-pdf.json.example"
+    if not example.exists():
+        raise FileNotFoundError(f"{example} not found")
+    config = json.loads(example.read_text(encoding="utf-8"))
+    config["stylesheet"] = [str(project_root / s) for s in config["stylesheet"]]
+    for script in config.get("script", []):
+        if "url" in script:
+            script["path"] = str((project_root / script["url"]).resolve())
+            del script["url"]
+    config_file.write_text(
+        json.dumps(config, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
     return config_file
 
 
@@ -72,7 +71,6 @@ def convert_file(
 ) -> ConvertResult:
     md_content = md_file.read_text(encoding="utf-8")
     md_content = preprocess(md_content)
-    md_file.write_text(md_content, encoding="utf-8")
     md_content = escape_latex_newlines(md_content)
 
     output_path = output or str(md_file.with_suffix(".pdf"))
